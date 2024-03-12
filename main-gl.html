@@ -1,0 +1,45 @@
+<doctype html>
+<head></head>
+<body>
+	<canvas id="c"/>
+	<script type="text/javascript" src="twgl-full.js"></script>
+
+
+	<script id="vs" type="notjs">
+		attribute vec4 position;
+		void main() {
+		  gl_Position = position;
+		}
+	</script>
+
+	<script id="fs" type="notjs">
+		precision mediump float;
+		uniform vec2 resolution;
+		uniform float time;
+
+		float rand(vec2 co) {
+		    return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
+		}
+
+		void main() {
+		  vec2 uv = gl_FragCoord.xy / resolution;
+		  float color = 0.0;
+		  float rnd = rand(vec2(0.33, 2.390));
+		  color += sin( uv.x * cos( time*rnd / 3.0 ) * 60.0 ) +
+			cos( uv.y * cos( time / 2.80 ) * 1.0 );
+		  color += sin( uv.y * sin( time / (pow(rnd,3.0)*2.0) ) * 40.0 ) +
+			tan( uv.x * sin( time / 0.70 ) * 1.0 );
+		  color += sin( uv.x * sin( time / 1.0 ) * 10.0 ) +
+			sin( uv.y * sin( time / 3.50 ) * 80.0 );
+		  color *= sin( time / 10.0 ) * 0.5;
+
+		  gl_FragColor = vec4( vec3( 
+			color * 0.5, 
+			sin( color + time / 2.5 ) * 0.75, 
+			color
+		  ), 1.0 );
+		}
+	</script>
+
+	<script type="text/javascript" src="glbits.js"></script>
+</body>
