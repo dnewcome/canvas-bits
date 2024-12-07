@@ -1,0 +1,53 @@
+<!doctype html>
+<head>
+	<script type="importmap">
+	  {
+	    "imports": {
+	      "three": "https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js",
+	      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.163.0/examples/jsm/",
+	      "stl": "https://cdn.jsdelivr.net/npm/three@0.120.1/examples/jsm/loaders/STLLoader.js"
+	    }
+	  }
+
+	</script>
+	<script type="module">
+		import * as THREE from 'three';
+		import { STLLoader } from 'stl';
+		const loader = new STLLoader();
+		const scene = new THREE.Scene();
+		const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+		const renderer = new THREE.WebGLRenderer();
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		document.body.appendChild( renderer.domElement );
+
+
+		const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+		const material = new THREE.MeshStandardMaterial( { color: 0x4444ee } );
+		const cube = new THREE.Mesh( geometry, material );
+		// scene.add( cube );
+
+
+		const light = new THREE.HemisphereLight(0x404040, 0xFFFFFF, 0.5);
+		scene.add( light );
+
+		camera.position.z = 125;
+		
+		let mesh = undefined;
+		loader.load( './benchy.stl', function ( geometry ) {
+	        mesh = new THREE.Mesh( geometry, material );
+		    // mesh.scale.set(3,3,3);
+		    scene.add( mesh );
+		    animate();
+		});
+
+		function animate() {
+			requestAnimationFrame( animate );
+			mesh.rotation.x += 0.01;
+			mesh.rotation.y += 0.01;
+			renderer.render( scene, camera );
+		}
+		// animate();
+	</script>
+</head>
+<body></body>
