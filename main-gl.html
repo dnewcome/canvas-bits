@@ -1,6 +1,35 @@
 <doctype html>
-<head></head>
+<head>
+<style>
+    * {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+        margin: 0;
+	padding: 0;
+    }	
+    canvas {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+    }
+    .pop {
+	background-color: gray;
+	opacity: 50%;
+	position: absolute;
+	width: 75%;
+	height: 75%;
+	z-index: 10;
+    }
+</style>
+	
+</head>
 <body>
+	<div class="pop"></div>
 	<canvas id="c"/>
 	<script type="text/javascript" src="twgl-full.js"></script>
 
